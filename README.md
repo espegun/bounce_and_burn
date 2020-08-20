@@ -1,3 +1,3 @@
 # Bounce and burn
 
-Bounce, and in worst case, burn.
+Bounce and quite possibly burn.
