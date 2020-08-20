@@ -1,1 +1,3 @@
-# bounce_and_burn
+# Bounce and burn
+
+Bounce, and in worst case, burn.
