@@ -18,3 +18,16 @@ class Game(object):
 
         return self.Balls
 
+    def get_human_players(self):
+
+        return [ball for ball in self.Balls if ball.is_human()]
+
+
+    def get_AI_players(self):
+
+        return [ball for ball in self.Balls if not ball.is_human()]
+
+
+
+
+

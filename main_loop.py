@@ -3,13 +3,12 @@ from pygame.locals import *
 
 from Game import Game
 from Ball import Ball
-from Visualizer import Visualizer
 
 print("Welcome to the amazinglicious game!")
 
 game = Game()
-game.add_Ball(Ball("Red", 10, 100, 100, (255, 0, 0)))
-game.add_Ball(Ball("Blue", 10, 200, 100, (0, 0, 255)))
+game.add_Ball(Ball("human", "Red", 10, 100, 100, (255, 0, 0)))
+game.add_Ball(Ball("passive", "Blue", 10, 200, 100, (0, 0, 255)))
 for b in game.get_Balls():
     b.set_speed(-10, 10)
 
@@ -31,10 +30,19 @@ while True:  # the main game loop
     #if direction == 'right':
     #    catx += 5
 
+
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+
+        # Check if the game event (e.g. a key pressed) matches a relevant human key
+        for b in [b for b in game.get_Balls() if b.is_human()]:
+            b.feed_event(event)
+
+    # Check for AI events
+    # TBD at some later stage
+
 
     for b in game.get_Balls():
         b.update_pos(1/FPS)
