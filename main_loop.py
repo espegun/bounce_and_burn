@@ -7,7 +7,7 @@ from Ball import Ball
 print("Welcome to the amazinglicious game!")
 
 game = Game()
-game.add_Ball(Ball("human", "Red", 10, 100, 100, (255, 0, 0)))
+game.add_Ball(Ball("human", "Red", 10, 100, 100, (255, 0, 0), "Not none"))
 game.add_Ball(Ball("passive", "Blue", 10, 200, 100, (0, 0, 255)))
 for b in game.get_Balls():
     b.set_speed(-10, 10)

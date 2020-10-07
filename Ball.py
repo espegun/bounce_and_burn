@@ -1,3 +1,5 @@
+import sys
+
 class Ball(object):
 
     def __init__(self, ball_type, name, radius, x_pos, y_pos, color, keyboard_controls=None):
@@ -21,12 +23,11 @@ class Ball(object):
         assert len(color) == 3
         self.color = color
 
-
         if keyboard_controls is not None:
-            self.keyboard_controls = self._transform_keyboard_controls({273: "up",
-                                                                        274: "down",
-                                                                        275: "right",
-                                                                        276: "left"})
+            self.keyboard_controls = self._transform_keyboard_controls({"up": 273,
+                                                                        "down": 274,
+                                                                        "right": 275,
+                                                                        "left": 276})
         else:
             self.keyboard_controls = None
 
@@ -43,21 +44,15 @@ class Ball(object):
         assert "left" in keyboard_controls.values()
         assert "right" in keyboard_controls.values()
         assert "up" in keyboard_controls.values()
-        assert "downl" in keyboard_controls.values()
+        assert "down" in keyboard_controls.values()
 
-        #self.event_handler(
+        controls = {keyboard_controls["up"]: self.up_func,
+                    keyboard_controls["right"]: self.right_func,
+                    keyboard_controls["left"]: self.left_func,
+                    keyboard_controls["down"]: self.right_func}
 
-        #273: U
-        #274 D
-        #275 R
-        #276 L
-
-        sys.exit(1)
-
-        self.my_events = {}  # TBD!!! Set human controls.
-
-        return hum
-
+        return controls
+        
 
     def feed_event(self, event):
 
