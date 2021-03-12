@@ -1,5 +1,6 @@
 import sys
 
+import pygame
 
 class Ball(object):
     def __init__(
@@ -29,7 +30,14 @@ class Ball(object):
 
         if keyboard_controls_set is not None:
             if keyboard_controls_set == 1:
-                self.keyboard_controls = {273: "up", 274: "down", 275: "right", 276: "left"}
+                # Maybe: Use decorators to define (decorated functions) versions of set_acc
+                # https://www.datacamp.com/community/tutorials/decorators-python
+
+                # self.keyboard_controls = {pygame.K_UP: "up", pygame.K_DOWN: "down", pygame.K_RIGHT: "right", pygame.K_LEFT: "left"}
+                self.keyboard_controls = {pygame.K_UP: "up",
+                                          pygame.K_DOWN: "down",
+                                          pygame.K_RIGHT: "right",
+                                          pygame.K_LEFT: "left"}
             elif keyboard_controls_set == 2:
                 self.keyboard_controls = {}  # TBD
             else:
@@ -39,16 +47,14 @@ class Ball(object):
 
         print(f"Ball '{name}' created")
 
-    def feed_event(self, event):
+    def feed_keys_pressed(self, keys_pressed):
 
         """Feed a single event (e.g. a key pressed) from the main game flow. Let the ball decide how to affect it's own
         actions."""
 
-        # TBD
-        # Check against self.human_controls
-
-        print("TBD!! The Ball.feed_event has to process events!")
-        print(f"{self.get_name()} processing event {event}.")
+        for key in self.keyboard_controls:
+            if keys_pressed[key]:
+                print(f"{self.name}: {self.keyboard_controls[key]}")
 
     def is_human(self):
 

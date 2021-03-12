@@ -25,21 +25,21 @@ pygame.display.set_caption("Bounce and burn")
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 
+
+print(pygame.K_RIGHT)
+
 while True:  # the main game loop
 
     surface.fill(WHITE)
-
-    # if direction == 'right':
-    #    catx += 5
 
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
 
-        # Check if the game event (e.g. a key pressed) matches a relevant human key
-        for b in [b for b in game.get_Balls() if b.is_human()]:
-            b.feed_event(event)
+    keys_pressed = pygame.key.get_pressed()
+    for b in [b for b in game.get_Balls() if b.is_human()]:
+        b.feed_keys_pressed(keys_pressed)
 
     # Check for AI events
     # TBD at some later stage
