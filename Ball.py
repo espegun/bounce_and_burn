@@ -69,14 +69,13 @@ class Ball(object):
 
         for key in self.keyboard_controls:
             if keys_pressed[key]:
-                print(f"{self.name}: {self.keyboard_controls[key]}")
                 self.actions_taken.append(self.keyboard_controls[key])
-        print(f"{self.name}: {self.actions_taken}")
 
-    def act_on_actions_taken(self):
+    def update_acc_from_actions(self):
         """
         Receive a list of all the actions which have been taken this
-        round, then modify the ball behavior based on it.
+        round, then set the acceleration of the ball based on the
+        relevant actions.
         This method should be used for human and AI players.
         """
 
@@ -92,8 +91,6 @@ class Ball(object):
                 x_acc += self.MAX_ACC
             elif action_taken == "left":
                 x_acc -= self.MAX_ACC
-            else:
-                raise Exception(f"Unknown action {action_taken}!")
 
         self.set_acc(x_acc, y_acc)
 
@@ -167,6 +164,6 @@ class Ball(object):
         3) Update position based on speed.
         """
 
-        self.act_on_actions_taken()
+        self.update_acc_from_actions()
         self.update_speed(time_delta)
         self.update_pos(time_delta)
