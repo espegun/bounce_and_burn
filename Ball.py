@@ -2,6 +2,7 @@ import sys
 
 import pygame
 
+
 class Ball(object):
     def __init__(
         self, ball_type, name, radius, x_pos, y_pos, color, keyboard_controls_set=None
