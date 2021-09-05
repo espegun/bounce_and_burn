@@ -6,13 +6,13 @@ class Game(object):
 
         self.Balls = []
 
-    def add_Ball(self, ball):
+    def add_ball(self, ball):
 
         assert isinstance(ball, Ball)
 
         self.Balls.append(ball)
 
-    def get_Balls(self):
+    def get_balls(self):
 
         return self.Balls
 
@@ -20,6 +20,6 @@ class Game(object):
 
         return [ball for ball in self.Balls if ball.is_human()]
 
-    def get_AI_players(self):
+    def get_ai_players(self):
 
         return [ball for ball in self.Balls if not ball.is_human()]

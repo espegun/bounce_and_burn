@@ -25,6 +25,14 @@ class Ball(object):
         assert isinstance(y_pos, (int, float))
         self.y_pos = y_pos
 
+        # Will be defined in separate methods
+        self.MAX_ACC = 18
+        self.actions_taken = []
+        self.x_speed = None
+        self.y_speed = None
+        self.x_acc = None
+        self.y_acc = None
+
         assert isinstance(color, tuple)
         assert len(color) == 3
         self.color = color
@@ -49,19 +57,51 @@ class Ball(object):
         print(f"Ball '{name}' created")
 
     def feed_keys_pressed(self, keys_pressed):
+        """
+        Applicable only to human players (balls).
+        Receive all keys pressed, store all the actions which have
+        been taken this round for this ball.
+        """
 
-        """Feed a single event (e.g. a key pressed) from the main game flow. Let the ball decide how to affect it's own
-        actions."""
+        assert self.is_human()
+
+        self.actions_taken = []
 
         for key in self.keyboard_controls:
             if keys_pressed[key]:
                 print(f"{self.name}: {self.keyboard_controls[key]}")
+                self.actions_taken.append(self.keyboard_controls[key])
+        print(f"{self.name}: {self.actions_taken}")
+
+    def act_on_actions_taken(self):
+        """
+        Receive a list of all the actions which have been taken this
+        round, then modify the ball behavior based on it.
+        This method should be used for human and AI players.
+        """
+
+        x_acc = 0
+        y_acc = 0
+
+        for action_taken in self.actions_taken:
+            if action_taken == "up":
+                y_acc -= self.MAX_ACC
+            elif action_taken == "down":
+                y_acc += self.MAX_ACC
+            elif action_taken == "right":
+                x_acc += self.MAX_ACC
+            elif action_taken == "left":
+                x_acc -= self.MAX_ACC
+            else:
+                raise Exception(f"Unknown action {action_taken}!")
+
+        self.set_acc(x_acc, y_acc)
 
     def is_human(self):
 
         return self.ball_type == "human"
 
-    def is_AI(self):
+    def is_ai(self):
 
         return self.ball_type == "AI"
 
@@ -117,3 +157,16 @@ class Ball(object):
 
         self.x_speed += time_delta * self.x_acc
         self.y_speed += time_delta * self.y_acc
+
+    def full_update(self, time_delta):
+
+        """
+        Assuming no other interactions:
+        1) Update acceleration based on actions taken
+        2) Update speed based on acceleration
+        3) Update position based on speed.
+        """
+
+        self.act_on_actions_taken()
+        self.update_speed(time_delta)
+        self.update_pos(time_delta)
