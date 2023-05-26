@@ -15,7 +15,6 @@ class GameModel():
     def add_ball(self, ball):
 
         assert isinstance(ball, Ball)
-
         self.balls.append(ball)
 
     def get_balls(self):
@@ -25,9 +24,13 @@ class GameModel():
     def add_player(self, player):
 
         assert isinstance(player, Player)
-
         self.players.append(player)
 
     def get_players(self):
 
         return self.players
+
+    def update_model(self, timedelta: float):
+
+        for b in self.get_balls():
+            b.update_pos(timedelta)

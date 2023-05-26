@@ -1,24 +1,10 @@
-import sys
-
-import pygame
-
-
 class Ball():
-    
-    #def __init__(
-    #    self, ball_type, name, radius, x_pos, y_pos, color, keyboard_controls_set=None
-    #):
-    
-    def __init__(self, color: tuple, radius: float, x_pos, y_pos, x_speed=0: float, y_speed=0: float, x_max_acc=1: float, x_max_acc=1: float):
 
-        if 0:
-            if ball_type not in ["human", "AI", "passive"]:
-                raise ValueError(f"Illegal ball_type: {ball_type}")
-            self.ball_type = ball_type
+    def __init__(self, color: tuple, radius: float, x_pos, y_pos, x_speed: float=0, y_speed: float=0, x_max_acc: float=1, y_max_acc: float=1):
 
-            if not isinstance(name, str):
-                raise TypeError("name is not a str.")
-            self.name = name
+        assert isinstance(color, tuple)
+        assert len(color) == 3
+        self.color = color
 
         assert isinstance(radius, (int, float))
         assert radius > 0
@@ -30,50 +16,29 @@ class Ball():
         self.y_pos = y_pos
 
         # Will be defined in separate methods
-        self.MAX_ACC = 18
-        self.actions_taken = []
-        self.x_speed = None
-        self.y_speed = None
+        self.x_speed = x_speed
+        self.y_speed = y_speed
         self.x_acc = None
         self.y_acc = None
 
-        assert isinstance(color, tuple)
-        assert len(color) == 3
-        self.color = color
 
-        if keyboard_controls_set is not None:
-            if keyboard_controls_set == 1:
-                # Maybe: Use decorators to define (decorated functions) versions of set_acc
-                # https://www.datacamp.com/community/tutorials/decorators-python
+        # if keyboard_controls_set is not None:
+        #     if keyboard_controls_set == 1:
+        #         # Maybe: Use decorators to define (decorated functions) versions of set_acc
+        #         # https://www.datacamp.com/community/tutorials/decorators-python
 
-                # self.keyboard_controls = {pygame.K_UP: "up", pygame.K_DOWN: "down", pygame.K_RIGHT: "right", pygame.K_LEFT: "left"}
-                self.keyboard_controls = {pygame.K_UP: "up",
-                                          pygame.K_DOWN: "down",
-                                          pygame.K_RIGHT: "right",
-                                          pygame.K_LEFT: "left"}
-            elif keyboard_controls_set == 2:
-                self.keyboard_controls = {}  # TBD
-            else:
-                raise ValueError(f"{keyboard_controls_set} is not a value keyboard_controls_set entry.")
-        else:
-            self.keyboard_controls = None
+        #         # self.keyboard_controls = {pygame.K_UP: "up", pygame.K_DOWN: "down", pygame.K_RIGHT: "right", pygame.K_LEFT: "left"}
+        #         self.keyboard_controls = {pygame.K_UP: "up",
+        #                                   pygame.K_DOWN: "down",
+        #                                   pygame.K_RIGHT: "right",
+        #                                   pygame.K_LEFT: "left"}
+        #     elif keyboard_controls_set == 2:
+        #         self.keyboard_controls = {}  # TBD
+        #     else:
+        #         raise ValueError(f"{keyboard_controls_set} is not a value keyboard_controls_set entry.")
+        # else:
+        #     self.keyboard_controls = None
 
-        print(f"Ball '{name}' created")
-
-    def feed_keys_pressed(self, keys_pressed):
-        """
-        Applicable only to human players (balls).
-        Receive all keys pressed, store all the actions which have
-        been taken this round for this ball.
-        """
-
-        assert self.is_human()
-
-        self.actions_taken = []
-
-        for key in self.keyboard_controls:
-            if keys_pressed[key]:
-                self.actions_taken.append(self.keyboard_controls[key])
 
     def update_acc_from_actions(self):
         """
@@ -97,22 +62,6 @@ class Ball():
                 x_acc -= self.MAX_ACC
 
         self.set_acc(x_acc, y_acc)
-
-    def is_human(self):
-
-        return self.ball_type == "human"
-
-    def is_ai(self):
-
-        return self.ball_type == "AI"
-
-    def is_passive(self):
-
-        return self.ball_type == "passive"
-
-    def get_name(self):
-
-        return self.name
 
     def get_radius(self):
 
