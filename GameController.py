@@ -12,7 +12,6 @@ class GameController:
     The is intended to be the Controller part of an MVC-pattern.
     """
 
-
     def __init__(self)
 
         self.gm = self.__setup_game_model__()
@@ -20,29 +19,12 @@ class GameController:
     def __setup_game_model__(self):
 
         gm = GameModel()
-        ball1 = Ball(10, 100, 100, )
-
-
+        ball1 = Ball((255, 0, 0), 10, 100, 100, 1, 1, 1, 1)
+        ball2 = Ball((0, 0, 255), 10, 200, 200, -1, -1, 1, 1)
+        gm.add_ball(ball1)
+        gm.add_ball(ball2)
 
         return gm
-
-
-
-
-    def init_default_game():
-
-        game = Game()
-        game.add_ball(Ball("human", "Red", 10, 100, 100, (255, 0, 0), 1))
-        game.add_ball(Ball("passive", "Blue", 10, 200, 100, (0, 0, 255)))
-        for ball in game.get_balls():
-            ball.set_speed(-10, 10)
-
-        return game
-
-
-    game = init_default_game()
-
-
 
     def run_game(self):
 

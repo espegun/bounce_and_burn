@@ -3,18 +3,22 @@ import sys
 import pygame
 
 
-class Ball(object):
-    def __init__(
-        self, ball_type, name, radius, x_pos, y_pos, color, keyboard_controls_set=None
-    ):
+class Ball():
+    
+    #def __init__(
+    #    self, ball_type, name, radius, x_pos, y_pos, color, keyboard_controls_set=None
+    #):
+    
+    def __init__(self, color: tuple, radius: float, x_pos, y_pos, x_speed=0: float, y_speed=0: float, x_max_acc=1: float, x_max_acc=1: float):
 
-        if ball_type not in ["human", "AI", "passive"]:
-            raise ValueError(f"Illegal ball_type: {ball_type}")
-        self.ball_type = ball_type
+        if 0:
+            if ball_type not in ["human", "AI", "passive"]:
+                raise ValueError(f"Illegal ball_type: {ball_type}")
+            self.ball_type = ball_type
 
-        if not isinstance(name, str):
-            raise TypeError("name is not a str.")
-        self.name = name
+            if not isinstance(name, str):
+                raise TypeError("name is not a str.")
+            self.name = name
 
         assert isinstance(radius, (int, float))
         assert radius > 0
