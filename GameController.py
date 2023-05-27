@@ -56,7 +56,7 @@ class GameController:
                     sys.exit()
             
             # TBD: Update model - with no input so far
-            self.gm.update_model(timedelta=1/self.FPS)   # Balls seem to have None speed?!       
+            self.gm.update_model(timedelta=1/self.FPS) 
             
             self.gv.draw(self.gm.get_balls())
             pygame.display.update()  # Show everything from the drawn off-screen buffer

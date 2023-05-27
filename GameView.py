@@ -9,26 +9,14 @@ class GameView:
 
     def __init__(self, surface):    
 
-        self.surface = surface
-        # set up the window
-        #self.surface = pygame.display.set_mode((400, 300), 0, 32)
-        
+        self.surface = surface  # The surface where the game will be drawn      
 
-    def draw(self, balls: list):
+    def draw(self, draw_these: list):
 
         self.surface.fill(GameView.WHITE)
 
-        for b in balls:
-            # evt b.draw(self.surface)
-
-            pos = b.get_pos()
-            pygame.draw.circle(
-                self.surface,
-                b.get_color(),
-                (round(pos["x"]), round(pos["y"])),
-                b.get_radius(),
-                0,
-            )
+        for draw_this in draw_these:
+            draw_this.draw_on_surface(self.surface)
 
         # while True:  # the main game loop
 

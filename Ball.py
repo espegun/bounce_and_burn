@@ -1,3 +1,6 @@
+import pygame
+
+
 class Ball():
 
     def __init__(self, color: tuple, radius: float, x_pos, y_pos, x_speed: float=0, y_speed: float=0, x_max_acc: float=1, y_max_acc: float=1):
@@ -120,3 +123,12 @@ class Ball():
         self.update_acc_from_actions()
         self.update_speed(time_delta)
         self.update_pos(time_delta)
+
+    def draw_on_surface(self, surface):
+
+        pygame.draw.circle(
+            surface,
+            self.color,
+            (round(self.x_pos), round(self.y_pos)),
+            self.get_radius(),
+            0)
