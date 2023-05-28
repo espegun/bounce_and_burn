@@ -48,13 +48,20 @@ class GameController:
         
         while True:
 
-            # TBD: Get inputs from keys and AI
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
+            keys_pressed = pygame.key.get_pressed()
+            for p in self.gm.get_players():
+                p.convert_keys_pressed_to_actions(keys_pressed)
+                print(p.get_actions())
             
+            # TBD: Get inputs from keys and AI
+
+
+
             # TBD: Update model - with no input so far
             self.gm.update_model(timedelta=1/self.FPS) 
             
