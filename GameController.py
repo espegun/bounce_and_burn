@@ -5,6 +5,7 @@ from pygame.locals import *
 
 from GameModel import GameModel
 from GameView import GameView
+from players import PlayerHuman
 from Ball import Ball
 
 class GameController:
@@ -36,10 +37,13 @@ class GameController:
     def __setup_game_model__(self):
 
         gm = GameModel()
-        ball1 = Ball((255, 0, 0), 10, 100, 100, 5, -5, 1, 1)
-        ball2 = Ball((0, 0, 255), 10, 200, 200, -5, 5, 1, 1)
+        ball1 = Ball((255, 0, 0), 10, 100, 100, 5, -5, 100, 100)
+        ball2 = Ball((0, 0, 255), 10, 200, 200, -5, 5, 100, 100)
+        Ball((100, 231, 21), 10, 25, 25 , 1, 1, 100, 100)
         gm.add_ball(ball1)
         gm.add_ball(ball2)
+        player1 = PlayerHuman("Player 1", ball1, pygame.K_UP, pygame.K_DOWN, pygame.K_RIGHT, pygame.K_LEFT)
+        gm.add_player(player1)
 
         return gm
 
@@ -54,16 +58,8 @@ class GameController:
                     sys.exit()
 
             keys_pressed = pygame.key.get_pressed()
-            for p in self.gm.get_players():
-                p.convert_keys_pressed_to_actions(keys_pressed)
-                print(p.get_actions())
-            
-            # TBD: Get inputs from keys and AI
 
-
-
-            # TBD: Update model - with no input so far
-            self.gm.update_model(timedelta=1/self.FPS) 
+            self.gm.update_model(time_delta=1/self.FPS, keys_pressed=keys_pressed) 
             
             self.gv.draw(self.gm.get_balls())
             pygame.display.update()  # Show everything from the drawn off-screen buffer

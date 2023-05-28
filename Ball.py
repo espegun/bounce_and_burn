@@ -18,51 +18,25 @@ class Ball():
         assert isinstance(y_pos, (int, float))
         self.y_pos = y_pos
 
-        # Will be defined in separate methods
         self.x_speed = x_speed
         self.y_speed = y_speed
-        self.x_acc = None
-        self.y_acc = None
+        self.x_acc = 0
+        self.y_acc = 0
+        self.x_max_acc = x_max_acc
+        self.y_max_acc = y_max_acc
 
 
-        # if keyboard_controls_set is not None:
-        #     if keyboard_controls_set == 1:
-        #         # Maybe: Use decorators to define (decorated functions) versions of set_acc
-        #         # https://www.datacamp.com/community/tutorials/decorators-python
-
-        #         # self.keyboard_controls = {pygame.K_UP: "up", pygame.K_DOWN: "down", pygame.K_RIGHT: "right", pygame.K_LEFT: "left"}
-        #         self.keyboard_controls = {pygame.K_UP: "up",
-        #                                   pygame.K_DOWN: "down",
-        #                                   pygame.K_RIGHT: "right",
-        #                                   pygame.K_LEFT: "left"}
-        #     elif keyboard_controls_set == 2:
-        #         self.keyboard_controls = {}  # TBD
-        #     else:
-        #         raise ValueError(f"{keyboard_controls_set} is not a value keyboard_controls_set entry.")
-        # else:
-        #     self.keyboard_controls = None
-
-
-    def update_acc_from_actions(self):
+    def update_acc_from_actions(self, x_acc_of_max: float, y_acc_of_max: float):
         """
-        Receive a list of all the actions which have been taken this
-        round, then set the acceleration of the ball based on the
-        relevant actions.
         This method should be used for human and AI players.
         """
-
-        x_acc = 0
-        y_acc = 0
-
-        for action_taken in self.actions_taken:
-            if action_taken == "up":
-                y_acc -= self.MAX_ACC
-            elif action_taken == "down":
-                y_acc += self.MAX_ACC
-            elif action_taken == "right":
-                x_acc += self.MAX_ACC
-            elif action_taken == "left":
-                x_acc -= self.MAX_ACC
+        assert x_acc_of_max >= -1
+        assert x_acc_of_max <= 1
+        assert y_acc_of_max >= -1
+        assert y_acc_of_max <= 1
+        
+        x_acc = x_acc_of_max * self.x_max_acc
+        y_acc = y_acc_of_max * self.y_max_acc
 
         self.set_acc(x_acc, y_acc)
 
@@ -111,16 +85,13 @@ class Ball():
         self.x_speed += time_delta * self.x_acc
         self.y_speed += time_delta * self.y_acc
 
-    def full_update(self, time_delta):
+    def update_speed_and_pos(self, time_delta):
 
         """
-        Assuming no other interactions:
-        1) Update acceleration based on actions taken
-        2) Update speed based on acceleration
-        3) Update position based on speed.
+        Assuming no other interactions, like collisions:
         """
 
-        self.update_acc_from_actions()
+        # self.update_acc_from_actions()
         self.update_speed(time_delta)
         self.update_pos(time_delta)
 

@@ -30,7 +30,18 @@ class GameModel():
 
         return self.players
 
-    def update_model(self, timedelta: float):
+    def update_model(self, time_delta: float, keys_pressed: tuple):
 
-        for b in self.get_balls():
-            b.update_pos(timedelta)
+        # Get player actions
+        for p in self.players:
+            p.convert_keys_pressed_to_actions(keys_pressed)
+
+        # Implement actions (so far just in balls)   
+        for p in self.players:
+            actions = p.get_actions()
+            b = p.get_ball()
+            b.update_acc_from_actions(actions["x_acc"], actions["y_acc"])
+
+        # Execute physics  
+        for b in self.get_balls():    
+            b.update_speed_and_pos(time_delta)
