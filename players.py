@@ -16,7 +16,6 @@ class Player(ABC):
         raise NotImplementedError
 
 
-
 class PlayerHuman(Player):
 
     def __init__(self, name: str, ball: Ball, up_key: int, down_key: int, right_key: int, left_key: int):

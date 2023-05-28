@@ -25,10 +25,7 @@ class GameController:
         self.fps_clock = pygame.time.Clock()
         
         pygame.init()
-        # pygame.display  # This is a module with various methods
-        #self.display = pygame.display    # Define the main Window
         self.display = pygame.display.set_mode((self.WINDOW_WIDTH, self.WINDOW_HEIGHT))
-        #self.display.set_caption("Bounce and burn")
         #pygame.display.set_caption("Bounce and burn")
         
         self.gv = GameView(self.display) 
@@ -48,7 +45,6 @@ class GameController:
         return gm
 
     def run_game(self):
-
         
         while True:
 
@@ -64,24 +60,3 @@ class GameController:
             self.gv.draw(self.gm.get_balls())
             pygame.display.update()  # Show everything from the drawn off-screen buffer
             self.fps_clock.tick(self.FPS)
-
-
-
-
-        # if 0:
-        #     if keyboard_controls_set is not None:
-        #         if keyboard_controls_set == 1:
-        #             # Maybe: Use decorators to define (decorated functions) versions of set_acc
-        #             # https://www.datacamp.com/community/tutorials/decorators-python
-
-        #             # self.keyboard_controls = {pygame.K_UP: "up", pygame.K_DOWN: "down", pygame.K_RIGHT: "right", pygame.K_LEFT: "left"}
-        #             self.keyboard_controls = {pygame.K_UP: "up",
-        #                                     pygame.K_DOWN: "down",
-        #                                     pygame.K_RIGHT: "right",
-        #                                     pygame.K_LEFT: "left"}
-        #         elif keyboard_controls_set == 2:
-        #             self.keyboard_controls = {}  # TBD
-        #         else:
-        #             raise ValueError(f"{keyboard_controls_set} is not a value keyboard_controls_set entry.")
-        #     else:
-        #         self.keyboard_controls = None

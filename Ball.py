@@ -58,40 +58,34 @@ class Ball():
         self.y_pos = y
 
     def set_speed(self, x, y):
-
         """speed in pixels/second"""
 
         self.x_speed = x
         self.y_speed = y
 
     def update_pos(self, time_delta):
-
         """"time_delta in seconds."""
 
         self.x_pos += time_delta * self.x_speed
         self.y_pos += time_delta * self.y_speed
 
     def set_acc(self, x, y):
-
         """"acc in pixels/seconds**2"""
 
         self.x_acc = x
         self.y_acc = y
 
     def update_speed(self, time_delta):
-
         """time_delta in seconds."""
 
         self.x_speed += time_delta * self.x_acc
         self.y_speed += time_delta * self.y_acc
 
     def update_speed_and_pos(self, time_delta):
-
         """
         Assuming no other interactions, like collisions:
         """
 
-        # self.update_acc_from_actions()
         self.update_speed(time_delta)
         self.update_pos(time_delta)
 
