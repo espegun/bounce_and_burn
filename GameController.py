@@ -40,7 +40,9 @@ class GameController:
         gm.add_ball(ball1)
         gm.add_ball(ball2)
         player1 = PlayerHuman("Player 1", ball1, pygame.K_UP, pygame.K_DOWN, pygame.K_RIGHT, pygame.K_LEFT)
+        player2 = PlayerHuman("Player 2", ball2, pygame.K_w, pygame.K_s, pygame.K_d, pygame.K_a)    
         gm.add_player(player1)
+        gm.add_player(player2)
 
         return gm
 

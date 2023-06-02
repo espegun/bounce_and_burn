@@ -1,5 +1,6 @@
-import pygame
+from math import sqrt
 
+import pygame
 
 class Ball():
 
@@ -25,6 +26,8 @@ class Ball():
         self.x_max_acc = x_max_acc
         self.y_max_acc = y_max_acc
 
+        self.mass = 1
+
 
     def update_acc_from_actions(self, x_acc_of_max: float, y_acc_of_max: float):
         """
@@ -48,6 +51,10 @@ class Ball():
 
         return self.color
 
+    def get_mass(self):
+        
+        return self.mass
+
     def get_pos(self):
 
         return {"x": self.x_pos, "y": self.y_pos}
@@ -56,6 +63,22 @@ class Ball():
 
         self.x_pos = x
         self.y_pos = y
+
+    def get_center_distance(self, other) -> float:
+        """
+        Calculate the center distance to another Ball.
+        """
+        assert isinstance(other, Ball)
+        x_other, y_other = other.get_pos()["x"], other.get_pos()["y"]
+        return sqrt((self.x_pos - x_other)**2 + (self.y_pos - y_other)**2)
+
+    def collision(self, other) -> bool:
+        """
+        Is this Ball overlapping / colliding with another Ball? 
+        Return True if yes.
+        """
+        distance = self.get_center_distance(other)
+        return distance < (self.get_radius() + other.get_radius())
 
     def set_speed(self, x, y):
         """speed in pixels/second"""
@@ -97,3 +120,5 @@ class Ball():
             (round(self.x_pos), round(self.y_pos)),
             self.get_radius(),
             0)
+        
+    
